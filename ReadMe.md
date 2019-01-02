@@ -12,7 +12,7 @@ BEGIN TRY DROP TABLE dbo.MainTable END TRY BEGIN CATCH END CATCH
 GO
 BEGIN TRY DROP VIEW MetaData.vw_PartitionDetails END TRY BEGIN CATCH END CATCH 
 GO
-BEGIN TRY DROP PROC dbo.sp_PrepareMainTablePartitiions END TRY BEGIN CATCH END CATCH 
+BEGIN TRY DROP PROC dbo.sp_PrepareMainTablePartititions END TRY BEGIN CATCH END CATCH 
 GO
 BEGIN TRY DROP PROC dbo.sp_LoadMainTable END TRY BEGIN CATCH END CATCH 
 GO
@@ -119,7 +119,7 @@ AS
 GO
 
 
-CREATE PROCEDURE dbo.sp_PrepareMainTablePartitiions
+CREATE PROCEDURE dbo.sp_PrepareMainTablePartititions
 (
       @PartitionDate DATE
     , @OverwriteData BIT = 1 -- 1 = Get rid of previous data.. 0 = Thrown error if previous data found
@@ -198,7 +198,7 @@ BEGIN
 
     IF @PartitionNumber IS NULL
     BEGIN
-        SET @ErrorMessage = 'Partition has not been created.  Run the proc "dbo.sp_PrepareMainTablePartitiions" first';
+        SET @ErrorMessage = 'Partition has not been created.  Run the proc "dbo.sp_PrepareMainTablePartititions" first';
         RAISERROR(@ErrorMessage,16,1);
         RETURN;
     END   
@@ -210,7 +210,7 @@ END
 GO
 
 
-EXEC dbo.sp_PrepareMainTablePartitiions '2019-01-02',1 ;
+EXEC dbo.sp_PrepareMainTablePartititions '2019-01-02',1 ;
 
 INSERT INTO dbo.MainTable
 (ID, UserName, RunDate)
